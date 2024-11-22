@@ -13,7 +13,7 @@ public class Expedition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "expedition_id")
     @Comment("원정대 pk")
-    private Long ExpeditionId;
+    private Long expeditionId;
 
     @Column(name="account_id")
     @Comment("계정아이디")
