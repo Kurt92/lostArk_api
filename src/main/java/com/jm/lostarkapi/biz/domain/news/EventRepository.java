@@ -12,4 +12,6 @@ public interface EventRepository extends CrudRepository<Event, Long> {
 
     @Query("SELECT e.title FROM Event e")
     List<String> findAllTitles();
+
+    List<Event> findAllByEndAtFalse();
 }

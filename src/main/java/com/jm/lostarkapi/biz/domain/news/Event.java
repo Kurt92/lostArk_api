@@ -30,4 +30,10 @@ public class Event {
     @Column(name="link_url")
     @Comment("링크 url")
     private String linkUrl;
+
+    @Column(name="endAt")
+    @Comment("종료여부")
+    private Boolean endAt;
+
+
 }

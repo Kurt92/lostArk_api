@@ -15,15 +15,19 @@ public class NewsDto {
     @Builder
     @AllArgsConstructor
     public static class Response {
-        private List<NewsDto.Save> events;
+        private List<NewsDto.NewsFields> events;
     }
+
+    @Getter
+    public static class Save extends NewsFields { }
+
 
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     @JsonIgnoreProperties(ignoreUnknown = true) //정의되지 않은 필드 무시
-    public static class Save {
+    public static class NewsFields {
         @JsonProperty("Title")
         private String title;
         @JsonProperty("Thumbnail")

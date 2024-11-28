@@ -20,6 +20,24 @@ public class NewsService {
     private final EventRepository eventRepository;
 
 
+    public NewsDto.Response findEvents() {
+
+        List<Event> eventsEntityList = eventRepository.findAllByEndAtFalse();
+
+
+        List<NewsDto.NewsFields> newsFieldsList = eventsEntityList.stream()
+                .map(event -> NewsDto.NewsFields.builder()
+                        .title(event.getTitle())
+                        .bannerImgUrl(event.getBannerImgUrl())
+                        .linkUrl(event.getLinkUrl())
+                        .build())
+                .collect(Collectors.toList());
+
+        return NewsDto.Response.builder()
+                .events(newsFieldsList)
+                .build();
+    }
+
     public void saveEvent(List<NewsDto.Save> events) {
 
 //        List<NewsDto.Save> convertedEvents = new ArrayList<>();
@@ -53,10 +71,6 @@ public class NewsService {
         }
 
     }
-
-
-
-
 
 
 

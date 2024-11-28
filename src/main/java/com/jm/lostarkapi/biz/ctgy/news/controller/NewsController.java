@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +26,12 @@ public class NewsController {
     private final NewsService newsService;
 
     @GetMapping("/event")
+    public ResponseEntity<? extends IRestResponse> getEvent() {
+
+        return RestResponse.of(newsService.findEvents());
+    }
+
+    @PutMapping("/event")
     public ResponseEntity<? extends IRestResponse> findEvent() throws Exception {
 
         String url = "http://localhost:8099/news/events";
@@ -44,10 +51,11 @@ public class NewsController {
                 String.class
         );
         ObjectMapper objectMapper = new ObjectMapper();
+
+
+        //이렇게 typeReference로 명시적으로 하면 맵핑 가능
         List<NewsDto.Save> res = new ArrayList<>();
 //        res = objectMapper.readValue(response.getBody(), List.class);
-        
-        //이렇게 typeReference로 명시적으로 하면 맵핑 가능
         res = objectMapper.readValue(response.getBody(), new TypeReference<List<NewsDto.Save>>() {});
         newsService.saveEvent(res);
 
@@ -62,7 +70,7 @@ public class NewsController {
 
 
 
-        return RestResponse.of(response);
+        return RestResponse.of(HttpStatus.OK);
     }
 
     @GetMapping("/notice")
