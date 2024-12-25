@@ -3,8 +3,10 @@ package com.jm.lostarkapi.biz.ctgy.news.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jm.lostarkapi.biz.ctgy.news.dto.NewsDto;
+import com.jm.lostarkapi.biz.ctgy.news.repository.NewsQueryDslRepository;
 import com.jm.lostarkapi.biz.domain.news.Event;
 import com.jm.lostarkapi.biz.domain.news.EventRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ public class NewsService {
 
     private final ObjectMapper objectMapper;
     private final EventRepository eventRepository;
+    private final NewsQueryDslRepository newsQueryDslRepository;
 
 
     public NewsDto.Response findEvents() {
@@ -38,6 +41,7 @@ public class NewsService {
                 .build();
     }
 
+    @Transactional
     public void saveEvent(List<NewsDto.Save> events) {
 
 //        List<NewsDto.Save> convertedEvents = new ArrayList<>();
@@ -55,6 +59,8 @@ public class NewsService {
 //            }
 //        }
 
+//        newsQueryDslRepository.updateAllEndAtToTrue();
+
         // stream
         List<String> findEvents = eventRepository.findAllTitles();
         List<Event> streamEvents = events.stream()
@@ -63,11 +69,18 @@ public class NewsService {
                         .title(event.getTitle())
                         .bannerImgUrl(event.getBannerImgUrl())
                         .linkUrl(event.getLinkUrl())
+                        .endAt(false)
                         .build())
                 .collect(Collectors.toList());
 
         if(!streamEvents.isEmpty()) {
-            eventRepository.saveAll(streamEvents);
+            List<Event> savedEvents = (List<Event>) eventRepository.saveAll(streamEvents);
+            List<Long> savedIds = savedEvents.stream()
+                    .map(Event::getNewsId)
+                    .collect(Collectors.toList());
+
+            newsQueryDslRepository.updateAllEndAtToTrue(savedIds);
+
         }
 
     }

@@ -45,7 +45,8 @@ public class NewsController {
 
         // 이렇게 하니까 바디가 링크드해쉬맵으로 들어옴
         // 이유는 오브젝트 맵퍼가 파싱할때 List.class로 명시적이지 않아서임
-        ResponseEntity<String> response = restTemplate.exchange(url,
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
                 HttpMethod.GET,
                 entity,
                 String.class
