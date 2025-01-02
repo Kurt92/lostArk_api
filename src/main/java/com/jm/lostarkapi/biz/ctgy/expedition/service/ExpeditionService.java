@@ -2,6 +2,7 @@ package com.jm.lostarkapi.biz.ctgy.expedition.service;
 
 
 import com.jm.lostarkapi.biz.ctgy.expedition.dto.ExpeditionDto;
+import com.jm.lostarkapi.biz.ctgy.expedition.repository.ExpeditionQueryDslRepository;
 import com.jm.lostarkapi.biz.domain.boss.Expedition;
 import com.jm.lostarkapi.biz.domain.boss.ExpeditionRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,10 @@ import java.util.stream.Collectors;
 public class ExpeditionService {
 
     private final ExpeditionRepository expeditionRepository;
+    private final ExpeditionQueryDslRepository expeditionQueryDslRepository;
 
 
-    public void updateExpedition(String mainCharacterNm, List<ExpeditionDto.Save> res) {
+    public void updateExpedition(String mainCharacterNm, List<ExpeditionDto.Save> res, String accountId) {
 
         List<Expedition> savedExpeditionList = expeditionRepository.findAllByMainCharacterNm(mainCharacterNm);
 
@@ -39,7 +41,7 @@ public class ExpeditionService {
                                 .characterLevel(resItem.getCharacterLevel())
                                 .itemLevel(resItem.getItemAvgLevel())
                                 .characterClassName(resItem.getCharacterClassName())
-                                .accountId(null)
+                                .accountId(accountId)
                                 .mainCharacterAt(mainCharacterNm.equals(resItem.getCharacterClassName()))
                                 .sixmanAt(false)
                                 .build();
@@ -54,7 +56,7 @@ public class ExpeditionService {
                                 .characterLevel(resItem.getCharacterLevel())
                                 .itemLevel(resItem.getItemAvgLevel())
                                 .characterClassName(resItem.getCharacterClassName())
-                                .accountId(null)
+                                .accountId(accountId)
                                 .mainCharacterAt(mainCharacterNm.equals(resItem.getCharacterClassName()))
                                 .sixmanAt(exist.getSixmanAt())
                                 .build();

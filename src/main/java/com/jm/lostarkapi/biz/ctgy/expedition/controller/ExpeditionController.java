@@ -6,6 +6,7 @@ import com.jm.lostarkapi.biz.ctgy.expedition.dto.ExpeditionDto;
 import com.jm.lostarkapi.biz.ctgy.expedition.service.ExpeditionService;
 import com.jm.lostarkapi.biz.ctgy.news.dto.NewsDto;
 import com.jm.lostarkapi.framework.core.response.IRestResponse;
+import com.jm.lostarkapi.framework.core.response.RestResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,18 +25,18 @@ public class ExpeditionController {
     private final RestTemplate restTemplate;
     private final ExpeditionService expeditionService;
 
+
+
+
     @GetMapping("/expedition/{name}")
     public ResponseEntity<? extends IRestResponse> findExpedition(@PathVariable String name) throws Exception {
-
-
-
 
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/expedition/{name}")
-    public ResponseEntity<? extends IRestResponse> updateExpedition(@PathVariable String name) throws Exception {
+    @PutMapping("/expedition/{name}/{accountId}")
+    public ResponseEntity<? extends IRestResponse> updateExpedition(@PathVariable String name, @PathVariable String accountId) throws Exception {
 
         String url = "http://localhost:8099/expedition/" + name;
 
@@ -61,7 +62,7 @@ public class ExpeditionController {
 //        ExpeditionDto.Save res = new ExpeditionDto.Save();
 //        res.setExpeditions(objectMapper.readValue(response.getBody(), new TypeReference<List<ExpeditionDto.ExpeditionFields>>() {}));
 
-        expeditionService.updateExpedition(name, res);
+        expeditionService.updateExpedition(name, res, accountId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

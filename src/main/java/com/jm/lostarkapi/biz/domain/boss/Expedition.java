@@ -57,9 +57,4 @@ public class Expedition {
     @Comment("식스맨 여부")
     private Boolean sixmanAt;
 
-
-
-
-
-
 }

@@ -10,4 +10,5 @@ public interface ExpeditionRepository extends CrudRepository<Expedition, Long> {
 
 
     List<Expedition> findAllByMainCharacterNm(String mainCharacterNm);
+    List<Expedition> findAllByAccountId(String accountId);
 }

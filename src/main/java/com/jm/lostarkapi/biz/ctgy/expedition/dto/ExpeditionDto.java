@@ -18,12 +18,18 @@ public class ExpeditionDto {
 
     }
 
+
+    // open api 에서 리턴하는 데이터셋
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ExpeditionFields {
+        @JsonProperty("accountId")
+        private String accountId;
+        @JsonProperty("mainCharacterNm")
+        private String mainCharacterNm;
         @JsonProperty("ServerName")
         private String serverName;
         @JsonProperty("CharacterName")
