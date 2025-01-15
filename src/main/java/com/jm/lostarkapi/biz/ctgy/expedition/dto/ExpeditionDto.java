@@ -8,6 +8,24 @@ import java.util.List;
 
 public class ExpeditionDto {
 
+    public static class Request {
+
+        @Getter
+        @Setter
+        public static class updateSixmanAt {
+            private List<ExpeditionReqFields> expedition;
+
+        }
+
+        @Setter
+        @Getter
+        public static class ExpeditionReqFields {
+            private String accountId;
+            private String characterNm;
+            private Boolean sixmanAt;
+        }
+    }
+
 
     public static class Response {
         private List<ExpeditionDto.ExpeditionFields> expeditions;

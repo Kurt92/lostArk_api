@@ -57,4 +57,11 @@ public class Expedition {
     @Comment("식스맨 여부")
     private Boolean sixmanAt;
 
+
+
+    public void updateSixmanAt(Boolean sixmanAt) {
+        this.sixmanAt = sixmanAt;
+    }
+
+
 }

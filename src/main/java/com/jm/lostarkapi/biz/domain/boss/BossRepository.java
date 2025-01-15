@@ -1,9 +1,9 @@
 package com.jm.lostarkapi.biz.domain.boss;
 
-import org.springframework.data.repository.CrudRepository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BossRepository extends CrudRepository<Expedition, Long> {
+public interface BossRepository extends JpaRepository<Boss, Long> {
 
 
 }

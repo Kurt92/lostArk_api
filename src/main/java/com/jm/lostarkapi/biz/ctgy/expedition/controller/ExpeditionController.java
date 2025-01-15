@@ -9,10 +9,7 @@ import com.jm.lostarkapi.framework.core.response.IRestResponse;
 import com.jm.lostarkapi.framework.core.response.RestResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -28,11 +25,16 @@ public class ExpeditionController {
 
 
 
-    @GetMapping("/expedition/{name}")
-    public ResponseEntity<? extends IRestResponse> findExpedition(@PathVariable String name) throws Exception {
+    @GetMapping("/expedition/{accountId}")
+    public ResponseEntity<? extends IRestResponse> findExpedition(@PathVariable String accountId) throws Exception {
 
+        return RestResponse.of(expeditionService.findExpedition(accountId));
+    }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("/expedition/{accountId}")
+    public ResponseEntity<? extends IRestResponse> updateSixmanAtExpedition(@PathVariable String accountId, @RequestBody ExpeditionDto.Request.updateSixmanAt updateSixmanAtDto) throws Exception {
+        expeditionService.updateSixmanAtExpedition(accountId, updateSixmanAtDto);
+        return RestResponse.of(HttpStatus.OK);
     }
 
     @PutMapping("/expedition/{name}/{accountId}")

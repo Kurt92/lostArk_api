@@ -30,6 +30,12 @@ public class BossController {
         return RestResponse.of(bossService.findAllExpedition(accountId));
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<? extends IRestResponse> findBossList() {
+
+        return RestResponse.of(bossService.findBossList());
+    }
+
     @GetMapping
     public ResponseEntity<? extends IRestResponse> findUser() {
 

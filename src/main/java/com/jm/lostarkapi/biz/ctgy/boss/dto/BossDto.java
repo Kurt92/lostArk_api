@@ -1,9 +1,6 @@
 package com.jm.lostarkapi.biz.ctgy.boss.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -38,6 +35,16 @@ public class BossDto {
             private List<BossDto.Expedition> expeditionList;
         }
 
+        @Getter
+        @Setter
+        @Builder
+        public static class BossList {
+
+            private String bossNm;
+            private List<BossDto.Boss> bossList;
+
+        }
+
     }
 
     @Getter
@@ -52,7 +59,25 @@ public class BossDto {
         private String itemLevel;
         private String characterLevel;
         private String serverNm;
-        private String sixmanAt;
+        private Boolean sixmanAt;
+        private List<BossDto.Boss> bossList;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class Boss {
+        private Long expeditionBossId;
+        private String characterNm;
+        private String bossNm;
+        private String bossCd;
+        private String bossCdGroup;
+        private String gate;
+        private Boolean clearAt;
+        private Long clearGold;
+        private String difficulty;
+        private String enterLv;
 
     }
 }

@@ -19,6 +19,24 @@ public class ExpeditionService {
     private final ExpeditionRepository expeditionRepository;
     private final ExpeditionQueryDslRepository expeditionQueryDslRepository;
 
+    public List<Expedition> findExpedition(String accountId) {
+        return expeditionRepository.findAllByAccountId(accountId);
+    }
+
+    public void updateSixmanAtExpedition(String accountId, ExpeditionDto.Request.updateSixmanAt updateSixmanAtDto) {
+
+        List<Expedition> expeditionList = expeditionRepository.findAllByAccountId(accountId);
+
+        for(ExpeditionDto.Request.ExpeditionReqFields expeditionReq : updateSixmanAtDto.getExpedition()) {
+            expeditionList.stream()
+                    .filter(item -> item.getCharacterNm().equals(expeditionReq.getCharacterNm()))
+                    .findFirst()
+                    .ifPresent(item -> item.updateSixmanAt(expeditionReq.getSixmanAt()));
+        }
+
+        expeditionRepository.saveAll(expeditionList);
+
+    }
 
     public void updateExpedition(String mainCharacterNm, List<ExpeditionDto.Save> res, String accountId) {
 
@@ -73,5 +91,6 @@ public class ExpeditionService {
 
 
     }
+
 
 }
